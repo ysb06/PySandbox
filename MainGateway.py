@@ -1,6 +1,9 @@
-import MachineLearning.TFLR_Clustering_KM as MachineLearning
+import MachineLearning.SciKit_DBSCAN as MachineLearning
 # import MorphemeAnalyzer.KoNLPyMain as MorphemeAnalyzer
 # import Undefined.NaverMap as navMap
 # import RealEstate.DataMiner as RealEstate
-
+'''
+PyCharm 프로젝트
+필요한 파이썬 모듈을 Import하여 사용
+'''
 MachineLearning.pandas_cluster()
