@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
 from mpl_toolkits.mplot3d import Axes3D
 
+
+
+
+
 def pandas_cluster():
     # 월별로 클러스터링, 아파트 이름 기준으로 자주 클러스터링 목록에 들어간 아파트 검색, 해당 아파트가 주로 클러스터링 되는 다른 그룹이 무엇인지 검색
 
@@ -21,7 +25,7 @@ def pandas_cluster():
             print(len(result), end=', Cluster: ')
             print(max(result['Label']) + 1, end=', No Cluster: ')
             print(len(result[result['Label'] == -1]))
-            # draw_pandas_scatter(result)
+            draw_pandas_scatter(result)
 
 def load_csv_data(year, month):
     raw = open('Data/RealEstateData/Location Price.csv', 'r')
@@ -34,7 +38,8 @@ def load_csv_data(year, month):
         contractYear = int(line[0])         # 거래 년도
         contractMonth = int(line[1])        # 거래 월
         if contractYear == year and contractMonth == month:
-            # 위치, line 2, 3, 4, 5, 6, 7, 8은 문자로 나타난 주소
+            # 위치, line 2, 3, 4, 5, 6, 7은 문자로 나타난 주소
+            aprt_name = line[8]
             px = float(line[9])             # 네이버 지도 위치 X좌표
             py = float(line[10])            # 네이버 지도 위치 Y좌표
             construction_year = line[3]      # 건설년도
@@ -49,6 +54,7 @@ def load_csv_data(year, month):
 
     print('Raw Size', end=': ')
     print(len(price_list))
+
     lx = pandas.DataFrame(px_list)
     ly = pandas.DataFrame(py_list)
     values = pandas.DataFrame(price_list)
@@ -61,8 +67,8 @@ def load_csv_data(year, month):
 def draw_pandas_scatter(pandas_result):
     fig = plt.figure()
     ax = Axes3D(fig)
-    # ax.set_xlim3d(left=126.79, right=126.99)
-    # ax.set_ylim3d(bottom=37.45, top=37.55)
+    ax.set_xlim3d(left=126.79, right=126.99)
+    ax.set_ylim3d(bottom=37.45, top=37.55)
 
     ax.scatter(pandas_result['X'], pandas_result['Y'], pandas_result['PPA'], c=pandas_result['Label'])
     ax.set_xlabel('X')
